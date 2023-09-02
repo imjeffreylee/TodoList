@@ -27,6 +27,9 @@ const ItemText = styled(ListItemText)`
 
 const ItemTime = styled(ListItemText)`
   overflow: hidden;
+  @media (max-width: 650px) {
+    display: none;
+  }
 `;
 
 const IconBox = styled(Box)`
