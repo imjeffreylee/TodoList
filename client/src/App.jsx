@@ -5,7 +5,7 @@ import Todo from './components/Todo';
 const Container = styled(Box)`
   height: 100vh;
   color: #5e5e5e;
-  background-color: #faf69d;
+  background-color: #f1f3f4;
 
   display: flex;
   align-items: center;
