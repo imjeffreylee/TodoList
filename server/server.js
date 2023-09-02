@@ -20,7 +20,12 @@ const Todo = require('./models/Todo');
 app.get('/todos', async (req, res) => {
   try {
     const todos = await Todo.find();
-    res.json(todos);
+    const sorted = todos.sort((a, b) => {
+      if (a.complete && !b.complete) return 1;
+      if (!a.complete && b.complete) return -1;
+      return b.timestamp - a.timestamp;
+    });
+    res.json(sorted);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -32,6 +37,7 @@ app.post('/todo', async (req, res) => {
     const todo = new Todo({
       text: req.body.text,
       complete: req.body.complete || false,
+      timestamp: Date.now(),
     });
 
     await todo.save();
