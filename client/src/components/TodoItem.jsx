@@ -11,12 +11,16 @@ import {
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 
-import ActionDialog from './ActionDialog';
 import AlertDialog from './AlertDialog';
 import { updateTodo } from '../api/todo';
+import ActionDialog from './ActionDialog';
 
 const TodoItem = ({ todo, fetchTodoList }) => {
-  const { _id, text, complete } = todo;
+  const { _id, text, complete, timestamp } = todo;
+
+  const date = new Date(Number(timestamp));
+  const dateStr = date.toLocaleDateString();
+  const timeStr = date.toLocaleTimeString();
 
   const [editOpen, setEditOpen] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
@@ -39,7 +43,12 @@ const TodoItem = ({ todo, fetchTodoList }) => {
   };
 
   return (
-    <ListItem key={_id} secondaryAction={listIconSet} disablePadding>
+    <ListItem
+      key={_id}
+      disablePadding
+      secondaryAction={listIconSet}
+      sx={{ opacity: complete ? '0.5' : '1' }}
+    >
       <ListItemButton>
         <ListItemIcon>
           <Checkbox
@@ -48,8 +57,10 @@ const TodoItem = ({ todo, fetchTodoList }) => {
             onChange={onCheckboxChange}
           />
         </ListItemIcon>
-        <ListItemText id={_id} primary={text} />
+        <ListItemText primary={text} sx={{ width: '100px' }} />
+        <ListItemText primary={`last updated: ${dateStr} ${timeStr}`} />
       </ListItemButton>
+
       <ActionDialog
         todoData={todo}
         open={editOpen}

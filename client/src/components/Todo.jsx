@@ -8,7 +8,7 @@ import { getTodoList } from '../api/todo';
 import ActionDialog from './ActionDialog';
 
 const ListCard = styled(Card)`
-  width: 50%;
+  width: 60%;
   margin-top: 32px;
   background-color: #eaeaea;
 `;
