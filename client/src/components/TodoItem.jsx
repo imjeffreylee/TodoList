@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 
 import {
+  Box,
   Tooltip,
   Checkbox,
   ListItem,
@@ -19,9 +20,18 @@ import { updateTodo } from '../api/todo';
 import ActionDialog from './ActionDialog';
 
 const ItemText = styled(ListItemText)`
-  width: 200px;
+  width: 150px;
   overflow: hidden;
   margin-right: 16px;
+`;
+
+const ItemTime = styled(ListItemText)`
+  overflow: hidden;
+`;
+
+const IconBox = styled(Box)`
+  background-color: #eaeaea;
+  border-radius: 25px;
 `;
 
 const TodoItem = ({ todo }) => {
@@ -37,14 +47,14 @@ const TodoItem = ({ todo }) => {
   const [alertOpen, setAlertOpen] = useState(false);
 
   const listIconSet = (
-    <>
+    <IconBox>
       <IconButton onClick={() => setEditOpen(true)}>
         <DriveFileRenameOutlineIcon />
       </IconButton>
       <IconButton onClick={() => setAlertOpen(true)}>
         <DeleteOutlineIcon />
       </IconButton>
-    </>
+    </IconBox>
   );
 
   const onCheckboxChange = (e, checked) => {
@@ -71,7 +81,9 @@ const TodoItem = ({ todo }) => {
         <Tooltip title={text}>
           <ItemText primary={text} />
         </Tooltip>
-        <ListItemText primary={`last updated: ${dateStr} ${timeStr}`} />
+        <Tooltip title={`last updated: ${dateStr} ${timeStr}`}>
+          <ItemTime primary={`last updated: ${dateStr} ${timeStr}`} />
+        </Tooltip>
       </ListItemButton>
 
       <ActionDialog
