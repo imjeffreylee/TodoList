@@ -1,2 +1,7 @@
-/node_modules
 request.rest
+.DS_Store
+node_modules/
+.env
+*.orig
+.idea/
+.vscode/
