@@ -15,7 +15,9 @@ const Container = styled(Box)`
 const App = () => {
   return (
     <Container>
-      <Typography variant="h2">My Todo List</Typography>
+      <Typography variant="h3" fontWeight="bold" marginTop={3}>
+        Todo List
+      </Typography>
       <Todo />
     </Container>
   );
