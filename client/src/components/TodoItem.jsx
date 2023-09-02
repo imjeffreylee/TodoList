@@ -19,7 +19,7 @@ import { updateTodo } from '../api/todo';
 import ActionDialog from './ActionDialog';
 
 const ItemText = styled(ListItemText)`
-  width: 100px;
+  width: 200px;
   overflow: hidden;
   margin-right: 16px;
 `;
