@@ -49,6 +49,7 @@ app.patch('/todos/:id', async (req, res) => {
       {
         text: req.body.text,
         complete: req.body.complete,
+        timestamp: Date.now(),
       },
       { new: true }
     );

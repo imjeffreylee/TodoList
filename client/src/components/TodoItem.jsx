@@ -13,6 +13,7 @@ import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutli
 
 import ActionDialog from './ActionDialog';
 import AlertDialog from './AlertDialog';
+import { updateTodo } from '../api/todo';
 
 const TodoItem = ({ todo, fetchTodoList }) => {
   const { _id, text, complete } = todo;
@@ -31,11 +32,21 @@ const TodoItem = ({ todo, fetchTodoList }) => {
     </>
   );
 
+  const onCheckboxChange = (e, checked) => {
+    updateTodo({ ...todo, complete: checked, id: todo._id }).then(() =>
+      fetchTodoList()
+    );
+  };
+
   return (
     <ListItem key={_id} secondaryAction={listIconSet} disablePadding>
       <ListItemButton>
         <ListItemIcon>
-          <Checkbox disableRipple checked={complete} />
+          <Checkbox
+            disableRipple
+            checked={complete}
+            onChange={onCheckboxChange}
+          />
         </ListItemIcon>
         <ListItemText id={_id} primary={text} />
       </ListItemButton>
