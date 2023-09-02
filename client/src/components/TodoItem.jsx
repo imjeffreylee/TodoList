@@ -1,20 +1,28 @@
 import { useContext, useState } from 'react';
 
 import {
+  Tooltip,
   Checkbox,
   ListItem,
   IconButton,
-  ListItemIcon,
   ListItemText,
+  ListItemIcon,
   ListItemButton,
 } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 
 import { TodoContext } from './Todo';
+import styled from '@emotion/styled';
 import AlertDialog from './AlertDialog';
 import { updateTodo } from '../api/todo';
 import ActionDialog from './ActionDialog';
+
+const ItemText = styled(ListItemText)`
+  width: 100px;
+  overflow: hidden;
+  margin-right: 16px;
+`;
 
 const TodoItem = ({ todo }) => {
   const { _id, text, complete, timestamp } = todo;
@@ -60,7 +68,9 @@ const TodoItem = ({ todo }) => {
             onChange={onCheckboxChange}
           />
         </ListItemIcon>
-        <ListItemText primary={text} sx={{ width: '100px' }} />
+        <Tooltip title={text}>
+          <ItemText primary={text} />
+        </Tooltip>
         <ListItemText primary={`last updated: ${dateStr} ${timeStr}`} />
       </ListItemButton>
 
