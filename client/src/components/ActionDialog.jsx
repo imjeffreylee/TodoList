@@ -27,8 +27,7 @@ const FormWrapper = styled(Box)`
 
 const initTodo = { text: '', complete: false };
 
-const ActionDialog = (props) => {
-  const { open, onClose, todoData, fetchTodoList } = props;
+const ActionDialog = ({ open, onClose, todoData, fetchTodoList }) => {
   const isEdit = !!todoData;
 
   const [todo, setTodo] = useState(todoData || initTodo);

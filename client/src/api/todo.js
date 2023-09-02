@@ -13,6 +13,6 @@ export const updateTodo = async ({ id, ...body }) => {
   return await axiosInstance.patch(`/todos/${id}`, body);
 };
 
-export const removeTodo = async ({ id }) => {
+export const removeTodo = async (id) => {
   return await axiosInstance.delete(`/todos/${id}`);
 };

@@ -35,8 +35,8 @@ const Todo = () => {
           </Button>
         </Box>
         <List>
-          {list.map((item, index) => (
-            <TodoItem key={index} item={item} />
+          {list.map((todo, index) => (
+            <TodoItem key={index} todo={todo} fetchTodoList={fetchTodoList} />
           ))}
         </List>
       </ListCard>

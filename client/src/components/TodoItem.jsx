@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import {
   Checkbox,
   ListItem,
@@ -9,15 +11,21 @@ import {
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 
-const TodoItem = ({ item }) => {
-  const { _id, text, complete } = item;
+import ActionDialog from './ActionDialog';
+import AlertDialog from './AlertDialog';
+
+const TodoItem = ({ todo, fetchTodoList }) => {
+  const { _id, text, complete } = todo;
+
+  const [editOpen, setEditOpen] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(false);
 
   const listIconSet = (
     <>
-      <IconButton edge="end" aria-label="comments">
+      <IconButton onClick={() => setEditOpen(true)}>
         <DriveFileRenameOutlineIcon />
       </IconButton>
-      <IconButton edge="end" aria-label="comments">
+      <IconButton onClick={() => setAlertOpen(true)}>
         <DeleteOutlineIcon />
       </IconButton>
     </>
@@ -31,6 +39,18 @@ const TodoItem = ({ item }) => {
         </ListItemIcon>
         <ListItemText id={_id} primary={text} />
       </ListItemButton>
+      <ActionDialog
+        todoData={todo}
+        open={editOpen}
+        fetchTodoList={fetchTodoList}
+        onClose={() => setEditOpen(false)}
+      />
+      <AlertDialog
+        id={_id}
+        open={alertOpen}
+        fetchTodoList={fetchTodoList}
+        onClose={() => setAlertOpen(false)}
+      />
     </ListItem>
   );
 };
