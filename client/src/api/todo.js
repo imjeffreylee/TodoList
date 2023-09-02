@@ -6,7 +6,7 @@ export const getTodoList = async () => {
 };
 
 export const addTodo = async (payload) => {
-  return await axiosInstance.post('/todo', payload);
+  return await axiosInstance.post('/todos', payload);
 };
 
 export const updateTodo = async ({ id, ...body }) => {
