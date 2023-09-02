@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+
 import {
   Dialog,
   Button,
@@ -6,9 +8,13 @@ import {
   DialogActions,
   DialogContentText,
 } from '@mui/material';
+
+import { TodoContext } from './Todo';
 import { removeTodo } from '../api/todo';
 
-const AlertDialog = ({ open, onClose, fetchTodoList, id }) => {
+const AlertDialog = ({ open, onClose, id }) => {
+  const { fetchTodoList } = useContext(TodoContext);
+
   const handleYes = () => {
     removeTodo(id).then(() => {
       fetchTodoList();

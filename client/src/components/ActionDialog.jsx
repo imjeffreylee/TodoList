@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useContext } from 'react';
+
 import {
   Box,
   Radio,
@@ -11,6 +12,8 @@ import {
   FormControlLabel,
 } from '@mui/material';
 import styled from '@emotion/styled';
+
+import { TodoContext } from './Todo';
 import { addTodo, updateTodo } from '../api/todo';
 
 const FormTitle = styled.h3`
@@ -27,11 +30,13 @@ const FormWrapper = styled(Box)`
 
 const initTodo = { text: '', complete: false };
 
-const ActionDialog = ({ open, onClose, todoData, fetchTodoList }) => {
+const ActionDialog = ({ open, onClose, todoData }) => {
   const isEdit = !!todoData;
 
   const [todo, setTodo] = useState(todoData || initTodo);
   const [isTextValid, setTextValid] = useState(true);
+
+  const { fetchTodoList } = useContext(TodoContext);
 
   const handleTodoChange = useCallback((e) => {
     const key = e.target.name;

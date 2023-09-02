@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import {
   Checkbox,
@@ -11,16 +11,19 @@ import {
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 
+import { TodoContext } from './Todo';
 import AlertDialog from './AlertDialog';
 import { updateTodo } from '../api/todo';
 import ActionDialog from './ActionDialog';
 
-const TodoItem = ({ todo, fetchTodoList }) => {
+const TodoItem = ({ todo }) => {
   const { _id, text, complete, timestamp } = todo;
 
   const date = new Date(Number(timestamp));
   const dateStr = date.toLocaleDateString();
   const timeStr = date.toLocaleTimeString();
+
+  const { fetchTodoList } = useContext(TodoContext);
 
   const [editOpen, setEditOpen] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
@@ -64,13 +67,11 @@ const TodoItem = ({ todo, fetchTodoList }) => {
       <ActionDialog
         todoData={todo}
         open={editOpen}
-        fetchTodoList={fetchTodoList}
         onClose={() => setEditOpen(false)}
       />
       <AlertDialog
         id={_id}
         open={alertOpen}
-        fetchTodoList={fetchTodoList}
         onClose={() => setAlertOpen(false)}
       />
     </ListItem>

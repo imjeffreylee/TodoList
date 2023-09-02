@@ -1,17 +1,19 @@
-import { useCallback, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { Card, List, Box, Button } from '@mui/material';
+import { Card, List, Box, Button, Typography } from '@mui/material';
 
 import TodoItem from './TodoItem';
-import { getTodoList } from '../api/todo';
 import ActionDialog from './ActionDialog';
+import { getTodoList } from '../api/todo';
 
 const ListCard = styled(Card)`
   width: 60%;
   margin-top: 32px;
   background-color: #eaeaea;
 `;
+
+export const TodoContext = createContext({});
 
 const Todo = () => {
   const [list, setList] = useState([]);
@@ -27,7 +29,7 @@ const Todo = () => {
   }, [fetchTodoList]);
 
   return (
-    <>
+    <TodoContext.Provider value={{ fetchTodoList }}>
       <ListCard>
         <Box display="flex" justifyContent="flex-end" pt={1} pr={1}>
           <Button variant="contained" onClick={() => setDialogOpen(true)}>
@@ -35,9 +37,14 @@ const Todo = () => {
           </Button>
         </Box>
         <List>
-          {list.map((todo, index) => (
-            <TodoItem key={index} todo={todo} fetchTodoList={fetchTodoList} />
-          ))}
+          {list.length > 0 ? (
+            list.map((todo, index) => <TodoItem key={index} todo={todo} />)
+          ) : (
+            <Typography textAlign="center">
+              There's nothing to do for now. Click 'ADD TODO' to create your
+              todo list.
+            </Typography>
+          )}
         </List>
       </ListCard>
       <ActionDialog
@@ -45,7 +52,7 @@ const Todo = () => {
         fetchTodoList={fetchTodoList}
         onClose={() => setDialogOpen(false)}
       />
-    </>
+    </TodoContext.Provider>
   );
 };
 
