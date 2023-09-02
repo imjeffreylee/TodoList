@@ -46,17 +46,13 @@ const ActionDialog = ({ open, onClose, todoData, fetchTodoList }) => {
 
   const handleSave = () => {
     if (!isTextValid) return;
-    if (isEdit) {
-      updateTodo({ id: todoData._id, ...todo }).then(() => {
-        fetchTodoList();
-        onClose();
-      });
-    } else {
-      addTodo(todo).then(() => {
-        fetchTodoList();
-        onClose();
-      });
-    }
+    const handleData = isEdit ? updateTodo : addTodo;
+    const data = isEdit ? { id: todoData._id, ...todo } : todo;
+    handleData(data).then(() => {
+      fetchTodoList();
+      setTodo(initTodo);
+      onClose();
+    });
   };
 
   return (
