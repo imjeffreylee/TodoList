@@ -6,17 +6,16 @@ const Container = styled(Box)`
   height: 100vh;
   color: #5e5e5e;
   background-color: #faf69d;
-`;
 
-const MainTitle = styled(Typography)`
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const App = () => {
   return (
     <Container>
-      <MainTitle variant="h2">My Todo List</MainTitle>
+      <Typography variant="h2">My Todo List</Typography>
       <Todo />
     </Container>
   );
