@@ -31,6 +31,7 @@ app.post('/todo', async (req, res) => {
   try {
     const todo = new Todo({
       text: req.body.text,
+      complete: req.body.complete || false,
     });
 
     await todo.save();
@@ -41,7 +42,7 @@ app.post('/todo', async (req, res) => {
   }
 });
 
-app.patch('/todo/:id', async (req, res) => {
+app.patch('/todos/:id', async (req, res) => {
   try {
     const updatedTodo = await Todo.findByIdAndUpdate(
       req.params.id,
@@ -63,7 +64,7 @@ app.patch('/todo/:id', async (req, res) => {
   }
 });
 
-app.delete('/todo/:id', async (req, res) => {
+app.delete('/todos/:id', async (req, res) => {
   try {
     const result = await Todo.findByIdAndDelete(req.params.id);
     if (!result) {
